@@ -1,9 +1,10 @@
 # Interactive comparison of two sorted arrays
 
 This gem provides module `Icmp` with only method `compare(current, previous)`. It yields events while comparing two arrays:
-1. :compare - items present in both arrays
-1. :added - item present only in current array
-1. :removed - item present only in previous array
+
+1. `:compare` - items present in both arrays
+2. `:added` - item present only in current array
+3. `:removed` - item present only in previous array
 
 Arrays should be sorted by key. Method takes O(n) time to process.
 
