@@ -14,9 +14,9 @@ class IcmpTest < MiniTest::Test
     current = [1, 2]
     previous = [1, 2]
 
-    Icmp.compare(current, previous) do |event, current, previous|
+    Icmp.compare(current, previous) do |event, cur_item, prev_item|
       assert_equal(:compare, event)
-      assert_equal(current, previous)
+      assert_equal(cur_item, prev_item)
     end
   end
 
@@ -24,9 +24,9 @@ class IcmpTest < MiniTest::Test
     current = [{ id: 1 }, { id: 2 }, { id: 3 }]
     previous = [{ id: 1 }, { id: 2 }, { id: 3 }]
 
-    Icmp.compare(current, previous, @key_proc) do |event, current, previous|
+    Icmp.compare(current, previous, @key_proc) do |event, cur_item, prev_item|
       assert_equal(:compare, event)
-      assert_equal(current, previous)
+      assert_equal(cur_item, prev_item)
     end
   end
 
@@ -39,10 +39,10 @@ class IcmpTest < MiniTest::Test
               :added, { :id => 5 }, nil]
     actual = []
 
-    Icmp.compare(current, previous, @key_proc) do |event, current, previous|
+    Icmp.compare(current, previous, @key_proc) do |event, cur_item, prev_item|
       actual << event
-      actual << current
-      actual << previous
+      actual << cur_item
+      actual << prev_item
     end
 
     assert_equal(expect, actual)
@@ -57,10 +57,10 @@ class IcmpTest < MiniTest::Test
               { :id => 2 }, :removed, { :id => 5 }, nil]
     actual = []
 
-    Icmp.compare(current, previous, @key_proc) do |event, current, previous|
+    Icmp.compare(current, previous, @key_proc) do |event, cur_item, prev_item|
       actual << event
-      actual << current
-      actual << previous
+      actual << cur_item
+      actual << prev_item
     end
 
     assert_equal(expect, actual)
@@ -76,10 +76,10 @@ class IcmpTest < MiniTest::Test
               { :id => 4 }, nil, :removed, { :id => 5 }, nil]
     actual = []
 
-    Icmp.compare(current, previous, @key_proc) do |event, current, previous|
+    Icmp.compare(current, previous, @key_proc) do |event, cur_item, prev_item|
       actual << event
-      actual << current
-      actual << previous
+      actual << cur_item
+      actual << prev_item
     end
 
     assert_equal(expect, actual)
@@ -89,10 +89,10 @@ class IcmpTest < MiniTest::Test
     expected = []
     actual = []
 
-    Icmp.compare([], [], @key_proc) do |event, current, previous|
+    Icmp.compare([], [], @key_proc) do |event, cur_item, prev_item|
       actual << event
-      actual << current
-      actual << previous
+      actual << cur_item
+      actual << prev_item
     end
 
     assert_equal(0, expected.size)
