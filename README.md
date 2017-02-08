@@ -1,4 +1,4 @@
-# Ruby extension for interactive compare Enumerables
+# Ruby extension for interactive comparison of two Enumerables
 
 This gem adds method `icmp(previous, ...)` to ruby module `Enumerable` for interactive comparing of two sorted enumerables. Method takes O(n) time to process.
 
