@@ -1,12 +1,12 @@
-require 'icmp'
 require 'benchmark/ips'
+require_relative '../lib/icmp'
 
 current = (1..20_000).to_a
 previous = current.dup
 
 Benchmark.ips do |x|
   x.report('interactive_compare') do
-    current.icmp(previous) do |event, cur_item, prev_item|
+      Icmp.compare(current, previous) do |event, cur_item, prev_item|
     end
   end
 

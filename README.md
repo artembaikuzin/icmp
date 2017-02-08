@@ -1,6 +1,11 @@
-# Ruby extension for interactive comparison of two Enumerables
+# Interactive comparison of two sorted arrays
 
-This gem adds method `icmp(previous, ...)` to ruby module `Enumerable` for interactive comparing of two sorted enumerables. Method takes O(n) time to process.
+This gem provides module `Icmp` with only method `compare(current, previous)`. It yields events while comparing two arrays:
+1. :compare - items present in both arrays
+1. :added - item present only in current array
+1. :removed - item present only in previous array
+
+Arrays should be sorted by key. Method takes O(n) time to process.
 
 ## Installation
 
@@ -33,9 +38,9 @@ previous = [{ id: 1, state: :new },
             { id: 4, state: :canceled }]
             
 # Sets proc for key retrieve
-current.icmp(previous, proc { |i| i[:id] }) do |event, cur_item, prev_item|
+Icmp.compare(current, previous, proc { |i| i[:id] }) do |event, cur_item, prev_item|
   print "ID: #{cur_item[:id]}, "
-  #
+
   case event
   when :compare
     if cur_item[:state] != prev_item[:state]
@@ -61,12 +66,15 @@ ID: 4, item is not changed, state = canceled
 
 ## Benchmark
 ```ruby
+require 'icmp'
+require 'benchmark/ips'
+
 current = (1..20_000).to_a
 previous = current.dup
 
 Benchmark.ips do |x|
   x.report('icmp') do
-    current.icmp(previous) do |event, cur_item, prev_item|
+    Icmp.compare(current, previous) do |event, cur_item, prev_item|
     end
   end
 

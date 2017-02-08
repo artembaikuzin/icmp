@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Artem Baikuzin']
   spec.email         = ['artembaykuzin@gmail.com']
 
-  spec.summary       = %q{Ruby Enumerable extension for interactive comparison of two Enumerable}
-  spec.description   = %q{Adds new method icmp for interactive comparison of two Enumerable}
+  spec.summary       = %q{Interactive comparison of two sorted arrays}
+  spec.description   = %q{Compare two arrays in interactive way, yields block with arguments: event, current_item, previous_item. Takes O(n) time.}
   spec.homepage      = 'https://github.com/ybinzu/icmp'
   spec.license       = 'MIT'
 
@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'minitest', '~> 5.0'
 end
